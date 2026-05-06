@@ -1,0 +1,17 @@
+{
+  "app": "dashboard_metricas_ads",
+  "version": 2,
+  "observacao": "Este arquivo é um modelo de banco/backup. Por segurança, navegadores não permitem que HTML/CSS/JS puro grave automaticamente neste arquivo. Use os botões 'Exportar banco JSON' e 'Importar banco JSON' para levar/restaurar os dados em qualquer navegador.",
+  "data": {
+    "postsTurbinados": [],
+    "campanhas": [],
+    "crmLeads": {
+      "columns": [
+        { "id": "novo", "title": "Novo lead", "cards": [] },
+        { "id": "contato", "title": "Em contato", "cards": [] },
+        { "id": "qualificado", "title": "Qualificado", "cards": [] },
+        { "id": "perdido", "title": "Perdido", "cards": [] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Posts Turbinados</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+
+</head>
+
+<body data-page="posts">
+  <div class="dash">
+    <div class="header">
+      <div class="header-icon"><img class="imgimg" src="./images/Ativo 17.svg" alt=""></div>
+      <div class="header-content">
+        <h1>MKT | Turbinados</h1>
+        <p>GERENCIADOR DE POSTS TURBINADOS</p>
+      </div>
+
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a class="nav-link active" href="index.html">Posts Turbinados</a>
+        <a class="nav-link" href="campanhas.html">Campanhas</a>
+        <a class="nav-link" href="crm.html">CRM Leads</a>
+      </nav>
+
+      <div class="badge" id="camp-count">0 campanhas</div>
+    </div>
+
+    <div class="main">
+      <div class="section-title">Novo Post Turbinado</div>
+
+      <div class="form-card">
+        <div class="form-grid">
+          <div class="field">
+            <label>Nome da Campanha</label>
+            <input id="nome" type="text" placeholder="Ex: Post Institucional" />
+          </div>
+
+          <div class="field">
+            <label>Dinheiro Usado (R$)</label>
+            <input id="dinheiro" type="number" placeholder="250.00" min="0" step="0.01" />
+          </div>
+
+          <div class="field">
+            <label>Alcance</label>
+            <input id="alcance" type="number" placeholder="12500" min="0" />
+          </div>
+
+          <div class="field">
+            <label>Novos Seguidores</label>
+            <input id="seguidores" type="number" placeholder="320" min="0" />
+          </div>
+
+          <div class="field">
+            <label>Custo por Seguidor</label>
+            <div class="computed-field" id="custo-preview">—</div>
+          </div>
+
+          <div class="field">
+            <label>Conversão de Público</label>
+            <div class="computed-field" id="conv-preview">—</div>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button class="btn-add" onclick="addCampanha()">+ Adicionar Campanha</button>
+          <button class="btn-clear" onclick="limparLocalStorage()">Limpar dados salvos</button>
+        </div>
+      </div>
+
+      <div class="backup-card">
+        <div>
+          <strong>Backup portátil dos dados</strong>
+          <p>Exporte um arquivo JSON para levar os dados para outro computador ou restaurar depois.</p>
+        </div>
+        <div class="backup-actions">
+          <button class="btn-secondary" onclick="exportarBancoDeDados()">Exportar banco JSON</button>
+          <label class="btn-secondary file-btn" for="database-import">Importar banco JSON</label>
+          <input id="database-import" class="file-input" type="file" accept="application/json,.json" onchange="importarBancoDeDados(event)">
+        </div>
+      </div>
+
+      <div id="dashboard-section" style="display:none">
+        <div class="section-title">Visão Geral</div>
+        <div class="metrics-grid" id="metrics-grid"></div>
+
+        <div class="two-col">
+          <div>
+            <div class="section-title">Gráfico de Desempenho</div>
+            <div class="chart-wrap">
+              <div class="chart-header">
+                <span class="chart-title"><span class="dot"></span>Campanhas</span>
+                <div class="tab-bar" id="tab-bar"></div>
+              </div>
+
+              <div class="bar-chart-area" id="bar-chart"></div>
+
+              <div class="chart-legend">
+                <div class="legend-item"><span class="legend-dot" style="background:#2563eb"></span>Referência</div>
+                <div class="legend-item" id="legend-label"><span class="legend-dot" style="background:#06b6d4"></span>Conversão %</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-title" id="scatter-section-title">Comparativo — Conversão vs Custo</div>
+            <div class="chart-wrap" style="height: calc(100% - 2.6rem);">
+              <div class="conversion-chart">
+                <canvas id="scatterChart" role="img" aria-label="Gráfico comparativo de desempenho das campanhas">
+                  Dados de campanhas serão exibidos aqui.
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">Campanhas</div>
+        <div class="campaigns-table scrollable">
+          <table>
+            <thead id="campaigns-head"></thead>
+            <tbody id="campaigns-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">🚀</div>
+        <p>Adicione sua primeira campanha acima</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="database.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

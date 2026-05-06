@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM de Leads</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body data-page="crm">
+  <div class="dash">
+    <div class="header">
+      <div class="header-icon"><img class="imgimg" src="./images/Ativo 17.svg" alt=""></div>
+      <div class="header-content">
+        <h1>MKT | CRM Leads</h1>
+        <p>KANBAN PARA LEADS DAS CAMPANHAS</p>
+      </div>
+
+      <nav class="header-nav" aria-label="Navegação principal">
+        <a class="nav-link" href="index.html">Posts Turbinados</a>
+        <a class="nav-link" href="campanhas.html">Campanhas</a>
+        <a class="nav-link active" href="crm.html">CRM Leads</a>
+      </nav>
+
+      <div class="badge" id="lead-count">0 leads</div>
+    </div>
+
+    <div class="main">
+      <div class="section-title">Novo Lead</div>
+
+      <div class="form-card">
+        <div class="form-grid crm-form-grid">
+          <div class="field">
+            <label>Nome completo</label>
+            <input id="lead-nome" type="text" placeholder="Ex: Marcelo Andrade" />
+          </div>
+
+          <div class="field">
+            <label>Campanha de origem</label>
+            <input id="lead-campanha" type="text" placeholder="Ex: Avaliação de Carteira" />
+          </div>
+
+          <div class="field">
+            <label>Data do lead</label>
+            <input id="lead-data" type="date" />
+          </div>
+
+          <div class="field">
+            <label>Lead bom?</label>
+            <select id="lead-bom">
+              <option value="sim">Sim</option>
+              <option value="nao">Não</option>
+              <option value="avaliar">Avaliar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field crm-notes-field">
+          <label>Observações</label>
+          <textarea id="lead-observacoes" rows="3" placeholder="Ex: Tem R$ 200k+ investidos, pediu contato no período da manhã..."></textarea>
+        </div>
+
+        <div class="button-row">
+          <button class="btn-add" onclick="addLead()">+ Adicionar Lead</button>
+          <button class="btn-clear" onclick="limparCRM()">Limpar CRM</button>
+        </div>
+      </div>
+
+      <div class="backup-card">
+        <div>
+          <strong>Backup portátil dos dados</strong>
+          <p>Exporte um arquivo JSON para levar os dados para outro computador ou restaurar depois.</p>
+        </div>
+        <div class="backup-actions">
+          <button class="btn-secondary" onclick="exportarBancoDeDados()">Exportar banco JSON</button>
+          <label class="btn-secondary file-btn" for="database-import">Importar banco JSON</label>
+          <input id="database-import" class="file-input" type="file" accept="application/json,.json" onchange="importarBancoDeDados(event)">
+        </div>
+      </div>
+
+      <div class="section-title">Esteira de Leads</div>
+      <div id="crm-board" class="crm-board" aria-label="CRM de leads em formato Kanban"></div>
+    </div>
+  </div>
+
+  <div id="lead-modal" class="modal-backdrop" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <div>
+          <h2 id="modal-title">Editar Lead</h2>
+          <p>Atualize as informações do card selecionado.</p>
+        </div>
+        <button class="modal-close" onclick="closeLeadModal()" aria-label="Fechar modal">×</button>
+      </div>
+
+      <input id="edit-card-id" type="hidden" />
+      <input id="edit-column-id" type="hidden" />
+
+      <div class="form-grid crm-form-grid modal-grid">
+        <div class="field">
+          <label>Nome completo</label>
+          <input id="edit-lead-nome" type="text" />
+        </div>
+
+        <div class="field">
+          <label>Campanha de origem</label>
+          <input id="edit-lead-campanha" type="text" />
+        </div>
+
+        <div class="field">
+          <label>Data do lead</label>
+          <input id="edit-lead-data" type="date" />
+        </div>
+
+        <div class="field">
+          <label>Lead bom?</label>
+          <select id="edit-lead-bom">
+            <option value="sim">Sim</option>
+            <option value="nao">Não</option>
+            <option value="avaliar">Avaliar</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field crm-notes-field">
+        <label>Observações</label>
+        <textarea id="edit-lead-observacoes" rows="4"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-clear" onclick="deleteLeadFromModal()">Excluir lead</button>
+        <button class="btn-add" onclick="saveLeadEdit()">Salvar alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="database.js"></script>
+  <script src="crm.js"></script>
+</body>
+</html>
